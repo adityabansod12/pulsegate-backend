@@ -174,7 +174,7 @@ pulsegate-serverless-access/
 
 ## Access Granted
 
-![Granted](screenshots/accessgranted1.jpeg)
+![Granted](screenshots/accessgranted12.jpeg)
 
 ---
 
