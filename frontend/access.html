@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gym Access — PulseGate</title>
+  <meta name="description" content="Verify your gym membership with a face scan using PulseGate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="PulseGate home">
+        <svg class="logo-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect width="28" height="28" rx="7" fill="currentColor" fill-opacity="0.12" />
+          <polyline points="4,14 9,14 11,14 12.5,7 14,21 15.5,5 17,19 18.5,12 20,14 24,14" fill="none"
+            stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        PulseGate
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="register.html">Register</a>
+        <a href="access.html" class="active">Access</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="index.html" class="back-link" id="back-home">
+      <svg class="back-link-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"
+        stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <line x1="15" y1="10" x2="5" y2="10" />
+        <polyline points="10,5 5,10 10,15" />
+      </svg>
+      <span>Back to home</span>
+    </a>
+
+    <div class="page-header">
+      <h1>Gym Access</h1>
+      <p>Select a photo to verify membership instantly.</p>
+    </div>
+
+    <!-- Upload area — the only input on this page -->
+    <div id="upload-area" class="access-upload">
+      <input type="file" id="access-image" class="access-upload-input" accept="image/*">
+      <label for="access-image" class="access-upload-label">
+        <!-- Face-scan icon -->
+        <svg class="access-upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M2 7V2h5" />
+          <path d="M22 7V2h-5" />
+          <path d="M2 17v5h5" />
+          <path d="M22 17v5h-5" />
+          <circle cx="12" cy="10" r="3" />
+          <path d="M7 17s1.5-2 5-2 5 2 5 2" />
+        </svg>
+        <h2>Select a Photo</h2>
+        <p>Choose a face image to scan against registered members</p>
+      </label>
+    </div>
+
+    <!-- Status card — revealed by JS after scan -->
+    <div id="status-card" class="status-card" role="alert" hidden>
+      <div id="status-icon" class="status-icon" aria-hidden="true"></div>
+      <span id="status-title" class="status-title"></span>
+      <span id="status-message" class="status-message"></span>
+      <button id="scan-again" class="reset-link" type="button">← Scan another</button>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; 2026 PulseGate &mdash; Serverless biometric access control.</p>
+  </footer>
+
+  <script src="js/access.js"></script>
+</body>
+
+</html>
