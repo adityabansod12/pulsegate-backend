@@ -162,7 +162,7 @@ pulsegate-serverless-access/
 
 ## Registration Successful
 
-![Registration Success](screenshots/register-success.jpeg)
+![Registration Success](screenshots/registrationsuccess.jpeg)
 
 ---
 
@@ -174,13 +174,13 @@ pulsegate-serverless-access/
 
 ## Access Granted
 
-![Granted](screenshots/access-granted.jpeg)
+![Granted](screenshots/accessgranted.jpeg)
 
 ---
 
 ## Access Denied
 
-![Denied](screenshots/access-denied.jpeg)
+![Denied](screenshots/accessdenied.jpeg)
 
 ---
 
