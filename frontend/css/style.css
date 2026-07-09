@@ -465,6 +465,156 @@ main {
   color: var(--text-secondary);
 }
 
+/* ================================================================
+   Camera Capture (register.html + access.html)
+   ================================================================
+   A single, reusable component: an "open camera" placeholder, a
+   live preview state, and a captured-photo review state. Only one
+   of the three is ever visible at a time — toggled via [hidden]. */
+
+.camera-section {
+  position: relative;
+}
+
+/* -- Idle state: nothing captured yet, camera not started -- */
+.camera-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 2.25rem 1.5rem;
+  background: var(--bg);
+  border: 2px dashed var(--border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  transition: border-color var(--transition), background var(--transition);
+}
+
+.camera-placeholder:hover {
+  border-color: var(--border-hover);
+}
+
+.camera-placeholder-icon {
+  width: 34px;
+  height: 34px;
+  color: var(--text-muted);
+}
+
+.camera-placeholder-text {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  max-width: 280px;
+}
+
+/* -- Live preview state -- */
+.camera-preview-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.camera-video-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: #000;
+  border: 1px solid var(--border);
+}
+
+/* The live <video> feed. Mirrored horizontally so the preview feels
+   like a mirror (natural for a front/selfie camera). This is a
+   purely visual CSS transform — it does not affect the raw frame
+   captured onto the canvas below. */
+.camera-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scaleX(-1);
+  display: block;
+}
+
+/* Subtle scanning frame overlay to reinforce the "biometric scanner" feel */
+.camera-video-frame::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+  box-shadow: inset 0 0 0 2px var(--accent-soft);
+  pointer-events: none;
+}
+
+/* -- Captured photo review state -- */
+.captured-preview-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.captured-image-frame {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--success-border);
+  background: #000;
+}
+
+.captured-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* -- Shared controls row (Capture / Retake / Verify buttons) -- */
+.camera-controls {
+  display: flex;
+  gap: 0.75rem;
+}
+
+/* Camera is never rendered inline before it's opened — this keeps
+   the hidden <video>/<canvas> elements out of layout entirely. */
+[hidden] {
+  display: none !important;
+}
+
+/* Hidden capture canvas — never shown to the user, used only to
+   grab a still frame from the live video stream. */
+.camera-canvas {
+  display: none;
+}
+
+/* Small note shown under the placeholder when getUserMedia is
+   unsupported or permission was denied, right above the fallback
+   "Upload Image Instead" button. */
+.camera-error-note {
+  font-size: 0.8rem;
+  color: var(--error);
+  max-width: 300px;
+}
+
+/* Wraps the whole camera section on access.html, echoing the
+   card treatment used by .access-upload so the two states swap
+   in place without a layout jump. */
+.access-camera {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.75rem;
+}
+
+.access-camera .camera-placeholder {
+  border-style: dashed;
+}
+
+/* "Use Camera Instead" link shown beneath the manual upload zone,
+   letting the user switch back to the live camera flow. */
+.camera-switch-btn {
+  width: 100%;
+  margin-top: 0.75rem;
+}
+
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
@@ -503,6 +653,38 @@ main {
 .btn:disabled {
   opacity: 0.5;
   cursor: not-allowed;
+}
+
+/* Secondary button — used for "Open Camera" style actions */
+.btn-secondary {
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid var(--accent-border, rgba(232, 93, 58, 0.35));
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--accent-glow);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Outline button — used for "Retake" / "Upload Image Instead" */
+.btn-outline {
+  background: transparent;
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+.btn-outline:hover:not(:disabled) {
+  color: var(--text);
+  border-color: var(--border-hover);
+  background: var(--surface-raised);
+}
+
+/* Buttons don't need to be full-width when placed side by side in camera controls */
+.camera-controls .btn {
+  width: auto;
+  flex: 1;
 }
 
 /* Loading spinner inside button */
@@ -802,6 +984,25 @@ main {
 
   .status-card {
     padding: 2rem 1.25rem;
+  }
+
+  /* On small/mobile screens the camera preview should feel more
+     like a full viewfinder — taller and edge-to-edge within the card. */
+  .camera-placeholder {
+    padding: 1.75rem 1rem;
+  }
+
+  .camera-video-frame,
+  .captured-image-frame {
+    aspect-ratio: 3 / 4;
+  }
+
+  .camera-controls {
+    flex-direction: column;
+  }
+
+  .camera-controls .btn {
+    width: 100%;
   }
 }
 
